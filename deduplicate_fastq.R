@@ -1,12 +1,15 @@
 
-setwd("~/Documents/shiyi")
+#setwd("~/Documents/shiyi")
 
 
 library(data.table)
 library(dplyr)
+library("microseq")
+# install.packages("microseq")
+# https://rdrr.io/cran/microseq/man/readFastq.html
+args = commandArgs(trailingOnly=TRUE)
 
-
-f<-read.table("A9161.fastq.out.fq")
+f<-read.table(args[1])
 
 f2<-NULL
 tmp<-NULL
@@ -30,7 +33,11 @@ for (i in 1:length(f3$V1)) {
   tmp<-rbind(f3$V1[i],f3$V2[i],f3$V3[i],f3$V4[i])
   df<-rbind(df,tmp)
 }
+
 write.table(df,"df.txt",quote = F,col.names = F,row.names = )
 
 nchar(df)
 nchar(f)
+=======
+write.table(df,"df.fq",quote = F,col.names = F,row.names =F )
+>>>>>>> dc93bb59b85b15a3bcf07bc07ca1c896c37f0233
