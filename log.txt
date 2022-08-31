@@ -1,0 +1,11 @@
+awk 'BEGIN{OFS="\t"}FNR==NR{a[NR]=$1;next}{$1=a[FNR]}1' playing1order playing1.sam > playing1_fix.sam
+
+awk 'FNR==NR {if (FNR%4==2) {a[$2]++; if (a[$2]>1) b[int(FNR/4)]=1} next} b[int(FNR/4)]==0' A9161.fastq.out.fq A9161.fastq.out.fq > A9161.dedup.fastq
+
+
+
+for q30file in fastqQ30/*S*_R1_001.fastq; do
+
+awk 'NR%4==2{if ($0~"GGAAAGGACGAAACAC") print $0;}'|cut -c 21-41| sort | uniq -c | sort -nr > counts/$(basename $count _001.fastq).txt
+
+done
